@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #result {
+            color: rgb(60, 4, 112);}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;}
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;}
+        img {
+            width: 70px;
+            height: 70px;}
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        fetch('http://localhost:3000/product')
+        .then(response => response.json())
+        .then(d => {
+            const result = document.getElementById('result');
+            let tableHTML = "<table><tr><th>ID</th><th>商品名</th><th>数量</th><th>値段</th><th>人気</th><th>画像</th></tr>";
+            d.forEach(user => {
+                tableHTML += 
+                    "<tr>" +
+                        "<td>" + user.product_id + "</td>" +
+                        "<td>" + user.product_name + "</td>" +
+                        "<td>" + user.product_qty + "</td>" +
+                        "<td>" + user.product_price + "</td>" +
+                        "<td>" + user.rank + "</td>" +
+                        "<td><img src='" + user.image + "'></td>" +
+                    "</tr>";});
+            tableHTML += "</table>";
+            result.innerHTML = tableHTML;
+        })
+    </script>
+</body>
+</html>
